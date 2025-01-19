@@ -28,13 +28,24 @@ import {
   Trash2,
 } from 'lucide-react';
 import { Secret, SecretFields } from '@/types/pocketbase';
+import { useState } from 'react';
 import { addSecretAction, deleteSecretAction, updateSecretAction } from './actionsHome';
 
 export function AddSecretDialog(
   { groupSecretsList }: { groupSecretsList: { id: string; name: string }[] },
 ) {
+  const [open, setOpen] = useState(false);
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    addSecretAction(formData)
+      .finally(() => setOpen(false));
+  };
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="ghost" size="sm" className="w-full justify-start">
           <Plus />
@@ -48,7 +59,7 @@ export function AddSecretDialog(
             Agrega un secreto para mantenerlo seguro y disponible en cualquier lugar.
           </DialogDescription>
         </DialogHeader>
-        <form className="flex flex-col" action={addSecretAction}>
+        <form className="flex flex-col" onSubmit={handleSubmit}>
           <div className="grid gap-4 py-6">
             <div className="grid grid-cols-5 items-center gap-4">
               <Label htmlFor="name" className="text-right">
@@ -105,8 +116,19 @@ export function EditSecretDialog(
   { groupSecretsList, secret }:
   { groupSecretsList: { id: string; name: string }[], secret: Secret },
 ) {
+  const [open, setOpen] = useState(false);
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    updateSecretAction(formData)
+      .finally(() => setOpen(false));
+  };
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="ghost" size="sm" className="w-full justify-start">
           <Pencil />
@@ -120,7 +142,7 @@ export function EditSecretDialog(
             Edita el secreto, su nombre, valor o grupo.
           </DialogDescription>
         </DialogHeader>
-        <form className="flex flex-col" action={updateSecretAction}>
+        <form className="flex flex-col" onSubmit={handleSubmit}>
           <div className="grid gap-4 py-6">
             <div className="grid grid-cols-5 items-center gap-4">
               <Label htmlFor="name" className="text-right">
@@ -179,8 +201,19 @@ export function EditSecretDialog(
 export function DeleteSecretDialog(
   { secret }: { secret: Secret },
 ) {
+  const [open, setOpen] = useState(false);
+
+  const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const formData = new FormData(form);
+
+    deleteSecretAction(formData)
+      .finally(() => setOpen(false));
+  };
+
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button variant="ghost" size="sm" className="w-full justify-start">
           <Trash2 />
@@ -194,7 +227,7 @@ export function DeleteSecretDialog(
             Elimina el secreto de forma permanente.
           </DialogDescription>
         </DialogHeader>
-        <form className="grid gap-4" action={deleteSecretAction}>
+        <form className="grid gap-4" onSubmit={handleSubmit}>
           <input type="hidden" name="secretId" value={secret[SecretFields.ID]} />
           <DialogFooter>
             <Button type="submit" variant="destructive">Eliminar</Button>

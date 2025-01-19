@@ -2,7 +2,6 @@
 
 import { pb } from '@/lib/pocketbase';
 import { revalidatePath } from 'next/cache';
-import { redirect } from 'next/navigation';
 
 export const addSecretAction = async (formData: FormData) => {
   const secretData = {
@@ -18,7 +17,6 @@ export const addSecretAction = async (formData: FormData) => {
   });
 
   revalidatePath('/');
-  redirect('/');
 };
 
 export const deleteSecretAction = async (formData: FormData) => {
@@ -27,7 +25,6 @@ export const deleteSecretAction = async (formData: FormData) => {
   await pb.deleteSecret({ secretId });
 
   revalidatePath('/');
-  redirect('/');
 };
 
 export const updateSecretAction = async (formData: FormData) => {
@@ -46,7 +43,6 @@ export const updateSecretAction = async (formData: FormData) => {
   });
 
   revalidatePath('/');
-  redirect('/');
 };
 
 export const addGroupSecretAction = async (formData: FormData) => {
@@ -61,7 +57,6 @@ export const addGroupSecretAction = async (formData: FormData) => {
   });
 
   revalidatePath('/');
-  redirect('/');
 };
 
 export const deleteGroupSecretAction = async (formData: FormData) => {
@@ -70,7 +65,6 @@ export const deleteGroupSecretAction = async (formData: FormData) => {
   await pb.deleteGroupSecret({ groupSecretId });
 
   revalidatePath('/');
-  redirect('/');
 };
 
 export const updateGroupSecretAction = async (formData: FormData) => {
@@ -85,5 +79,4 @@ export const updateGroupSecretAction = async (formData: FormData) => {
   });
 
   revalidatePath('/');
-  redirect('/');
 };
