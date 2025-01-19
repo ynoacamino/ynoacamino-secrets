@@ -1,17 +1,17 @@
-import { SECRET_KEY } from '@/config/global';
-import { pb } from '@/lib/pocketbase';
-import Home from './Home';
+import { authWithParams } from '@/lib/auth';
+import Home from '@/components/Home/Home';
+import { notFound } from 'next/navigation';
 
-export default async function Page({ searchParams }: { searchParams: { k: string } }) {
-  // if (searchParams.k !== SECRET_KEY) {
-  //   return (
-  //     <div>
-  //       forebiden
-  //     </div>
-  //   );
-  // }
+export default async function Page(
+  { searchParams }: { searchParams: Promise<{ [key: string]: string }> },
+) {
+  const user = await authWithParams(await searchParams);
+
+  if (!user) {
+    notFound();
+  }
 
   return (
-    <Home />
+    <Home user={user} />
   );
 }

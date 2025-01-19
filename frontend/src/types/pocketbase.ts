@@ -41,7 +41,7 @@ export enum GroupSecretFields {
 export interface User extends RecordModel {
   [UserFields.ID]: string;
   [UserFields.USERNAME]: string;
-  [UserFields.SECRET_TOKEN]: string;
+  [UserFields.SECRET_TOKEN]?: string;
 
   [UserFields.CREATED]: string;
   [UserFields.UPDATED]: string;
