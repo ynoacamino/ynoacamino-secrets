@@ -1,15 +1,16 @@
 import { RecordModel } from 'pocketbase';
 
 export enum Collections {
-  USER = 'user',
-  SECRET = 'secret',
-  GROUP_SECRET = 'group_secret',
+  USER = 'users',
+  SECRET = 'secrets',
+  GROUP_SECRET = 'group_secrets',
 }
 
 export enum UserFields {
   ID = 'id',
   USERNAME = 'username',
   SECRET_TOKEN = 'secret_token',
+  EMAIL = 'email',
 
   CREATED = 'created',
   UPDATED = 'updated',
@@ -41,6 +42,7 @@ export enum GroupSecretFields {
 export interface User extends RecordModel {
   [UserFields.ID]: string;
   [UserFields.USERNAME]: string;
+  [UserFields.EMAIL]: string;
   [UserFields.SECRET_TOKEN]?: string;
 
   [UserFields.CREATED]: string;
@@ -67,7 +69,7 @@ export interface GroupSecret extends RecordModel {
 
   [GroupSecretFields.EXPAND]?: {
     [GroupSecretFields.USER]: User;
-    secret_via_group_secret: Secret[];
+    secrets_via_group_secret: Secret[];
   }
 
   [GroupSecretFields.CREATED]: string;

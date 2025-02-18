@@ -1,17 +1,9 @@
-import { authWithParams } from '@/lib/auth';
-import Home from '@/components/Home/Home';
-import { notFound } from 'next/navigation';
+'use client';
 
-export default async function Page(
-  { searchParams }: { searchParams: Promise<{ [key: string]: string }> },
-) {
-  const user = await authWithParams(await searchParams);
+import Home from '@/components/pages/home/Home';
 
-  if (!user) {
-    notFound();
-  }
-
+export default function Page() {
   return (
-    <Home user={user} />
+    <Home />
   );
 }
