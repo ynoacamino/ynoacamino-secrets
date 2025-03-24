@@ -3,12 +3,15 @@
 import { Button } from '@/components/ui/button';
 import { Check, Copy } from 'lucide-react';
 import { useState } from 'react';
+import { Clipboard } from '@capacitor/clipboard';
 
 export function CopyButton({ value }: { value: string }) {
   const [isCopy, setIsCopy] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(value)
+    Clipboard.write({
+      string: value,
+    })
       .then(() => setIsCopy(true))
       .catch(() => setIsCopy(false))
       .finally(() => setTimeout(() => setIsCopy(false), 2000));
