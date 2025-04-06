@@ -53,8 +53,8 @@ export const addSecretSchema = z.object({
     .min(1, {
       message: 'El valor del secreto debe tener al menos 1 caracter.',
     })
-    .max(30, {
-      message: 'El valor del secreto no puede tener más de 30 caracteres.',
+    .max(300, {
+      message: 'El valor del secreto no puede tener más de 300 caracteres.',
     }),
   groupSecretId: z.string().min(1, {
     message: 'El nombre del grupo no puede estar vacío.',
