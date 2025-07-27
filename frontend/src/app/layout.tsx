@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'ynoa-secrets',
+  title: 'Secrets',
   description: 'Una platafroma para guardar contraseñas de forma segura',
 };
 

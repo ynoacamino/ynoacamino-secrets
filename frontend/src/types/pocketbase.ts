@@ -68,7 +68,6 @@ export interface GroupSecret extends RecordModel {
   [GroupSecretFields.USER]: string;
 
   [GroupSecretFields.EXPAND]?: {
-    [GroupSecretFields.USER]: User;
     secrets_via_group_secret: Secret[];
   }
 
